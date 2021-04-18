@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('/manifest', 'ManifestController@manifest');
+
+Route::post('/location', 'LocationController@store')->name('location.store');

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Location;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $locations = Location::with(['bike', 'bike.user'])->whereHas('bike', function($query){
+            return $query->where('user_id', Auth::user()->id);
+        })->get();
+        
+        return view('home', compact('locations'));
     }
 }
