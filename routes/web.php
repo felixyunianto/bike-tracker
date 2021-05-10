@@ -23,6 +23,8 @@ Route::get('/map', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::resource('garage', 'BikeController');
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('garage', 'BikeController');
+    Route::post('/borrow/{id}', 'OrderController@borrow')->name('borrow');
+});

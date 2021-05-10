@@ -6,11 +6,11 @@
         </button>
         <div class="navbar__nav-item dropdown">
             <button class="btn btn-outline-light dropdown-toggle" type="button" data-toggle="dropdown">
-                <img src="assets/images/people/206.jpg" alt="user" class="avatar avatar--xs rounded-circle">
-                <span>John Doe</span>
+                <img src="{{ asset('assets/images/people/206.jpg') }}" alt="user" class="avatar avatar--xs rounded-circle">
+                <span>{{ Auth::user()->name }}</span>
             </button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="profile.html">
+                {{-- <a class="dropdown-item" href="profile.html">
                     <i class="fad fa-user-alt mr-3"></i>
                     <span>My Profile</span>
                 </a>
@@ -21,7 +21,7 @@
                 <a href="#" class="dropdown-item">
                     <i class="fad fa-cog mr-3"></i>
                     <span>Settings</span>
-                </a>
+                </a> --}}
                 <div class="dropdown-divider"></div>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf

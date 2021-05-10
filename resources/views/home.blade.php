@@ -33,12 +33,18 @@
         }).addTo(mymap);
 
         const btnFindLocation = document.querySelector('#find-location');
-
+        @if ($locations)
+            @foreach ($locations as $location)
+                var marker = L.marker([{{ $location->latitudes }}, {{ $location->longitudes }}]).addTo(mymap);
+                marker.bindPopup("<b>Hello, {{ $location->bike->user->name }}!</b><br>{{ $location->bike->bike_name }}")
+            @endforeach
+        @endif
         btnFindLocation.addEventListener('click', function() {
             @if ($locations)
                 @foreach ($locations as $location)
-                    var marker = L.marker([{{ $location->latitudes }}, {{ $location->longitudes }}]).addTo(mymap);
-                    marker.bindPopup("<b>Hello, {{ $location->bike->user->name }}!</b><br>{{ $location->bike->bike_name }}")
+                
+                    var newMarker = L.marker([{{ $location->latitudes }}, {{ $location->longitudes }}]).addTo(mymap);
+                    newMarker.bindPopup("<b>Hello, {{ $location->bike->user->name }}!</b><br>{{ $location->bike->bike_name }}")
                 @endforeach
             @endif
         });
