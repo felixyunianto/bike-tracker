@@ -40,7 +40,7 @@
                         <td>
                             <form action="{{ route('bike.post-lock', $bike->id) }}" method="post" id="form-locked-{{ $bike->id }}">
                                 @csrf
-                                @if ($bike->locked === 1)
+                                @if ($bike->locked == true)
                                     <input type="hidden" name="locked" value="0">
                                 @else
                                     <input type="hidden" name="locked" value="1">
@@ -49,7 +49,7 @@
                             <form action="{{ route('garage.destroy', $bike->id) }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="_method" value="DELETE">
-                                @if ($bike->locked === 1)
+                                @if ($bike->locked == true)
                                 <button type="button" class="btn btn-primary btn-sm btn-borrow" data-id="{{ $bike->id }}" id="btn-locked">
                                     <i class="fas fa-bicycle"></i> Buka Kunci
                                 @else
