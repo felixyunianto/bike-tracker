@@ -32,22 +32,14 @@
             accessToken: 'pk.eyJ1IjoibGl4dGVjaDIwIiwiYSI6ImNrZHl6YzhzMjFtc2oyeW5zNXlsc2FvYmwifQ.7NsPJ2KvcqlM0dC-qBQ6Yw'
         }).addTo(mymap);
 
-        const btnFindLocation = document.querySelector('#find-location');
+        
+
         @if ($locations)
             @foreach ($locations as $location)
                 var marker = L.marker([{{ $location->latitudes }}, {{ $location->longitudes }}]).addTo(mymap);
                 marker.bindPopup("<b>Hello, {{ $location->bike->user->name }}!</b><br>{{ $location->bike->bike_name }}")
             @endforeach
         @endif
-        btnFindLocation.addEventListener('click', function() {
-            @if ($locations)
-                @foreach ($locations as $location)
-                
-                    var newMarker = L.marker([{{ $location->latitudes }}, {{ $location->longitudes }}]).addTo(mymap);
-                    newMarker.bindPopup("<b>Hello, {{ $location->bike->user->name }}!</b><br>{{ $location->bike->bike_name }}")
-                @endforeach
-            @endif
-        });
 
     </script>
 @endsection

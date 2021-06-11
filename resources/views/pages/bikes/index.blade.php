@@ -38,12 +38,24 @@
                             @endif
                         </td>
                         <td>
+                            <form action="{{ route('bike.post-lock', $bike->id) }}" method="post" id="form-locked-{{ $bike->id }}">
+                                @csrf
+                                @if ($bike->locked === 1)
+                                    <input type="hidden" name="locked" value="0">
+                                @else
+                                    <input type="hidden" name="locked" value="1">
+                                @endif
+                            </form>
                             <form action="{{ route('garage.destroy', $bike->id) }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="_method" value="DELETE">
-                                <button type="button" class="btn btn-primary btn-sm btn-borrow" data-id="{{ $bike->id }}"
-                                    data-toggle="modal" data-target="#exampleModal">
-                                    <i class="fas fa-bicycle"></i> Lend
+                                @if ($bike->locked === 1)
+                                <button type="button" class="btn btn-primary btn-sm btn-borrow" data-id="{{ $bike->id }}" id="btn-locked">
+                                    <i class="fas fa-bicycle"></i> Buka Kunci
+                                @else
+                                <button type="button" class="btn btn-primary btn-sm btn-borrow" data-id="{{ $bike->id }}" id="btn-locked">
+                                    <i class="fas fa-bicycle"></i> Kunci
+                                @endif
                                 </button>
                                 <a href="{{ route('garage.edit', $bike->id) }}" class="btn btn-warning btn-sm"> <i
                                         class="fas fa-edit"></i> Ubah</a>
@@ -57,35 +69,6 @@
         </table>
     </div>
 
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <form action="" id="form-borrow" method="POST">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-
-                        @csrf
-                        <div class="form-group">
-                            <label for="">Borrow's Name</label>
-                            <input type="text" class="form-control" name="borrower_name" placeholder="Enter Borrower's Name">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
 @endsection
 
 @section('script')
@@ -97,6 +80,10 @@
             $('#garage-table').on('click', '.btn-borrow', function() {
                 $('#form-borrow').attr('action', `/borrow/${$(this).data('id')}`);
             });
+
+            $('#garage-table').on('click', '#btn-locked', function() {
+                $('#form-locked-'+$(this).data('id')).submit();
+            })
         })
 
     </script>

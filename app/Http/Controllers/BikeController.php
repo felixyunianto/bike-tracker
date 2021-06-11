@@ -78,4 +78,20 @@ class BikeController extends Controller
 
         return redirect()->route('garage.index');
     }
+
+    public function getLock($id){
+        $bike = Bike::findOrFail($id);
+
+        return response()->json($bike->locked ? 1:0);
+    }
+
+    public function postLock(Request $request, $id) {
+        $bike = Bike::findOrFail($id);
+
+        $bike->update([
+            'locked' => $request->locked,
+        ]);
+
+        return redirect()->route('garage.index');
+    }
 }

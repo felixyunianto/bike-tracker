@@ -21,3 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/manifest', 'ManifestController@manifest');
 
 Route::get('/location', 'LocationController@store')->name('location.store');
+
+Route::get('/locked/{id}', 'BikeController@getLock')->name('bike.get-lock');
