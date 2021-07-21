@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/map', function () {
     return view('map-test');
 });
@@ -24,7 +20,7 @@ Route::get('/map', function () {
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index')->name('home');
     Route::resource('garage', 'BikeController');
     Route::post('/borrow/{id}', 'OrderController@borrow')->name('borrow');
     Route::post('locked/{id}', 'BikeController@postLock')->name('bike.post-lock');

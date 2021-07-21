@@ -73,7 +73,7 @@
 <!-- .card -->
                 <div class="fz-sm">
                     <span>Already have an account?</span>
-                    <a href="login.html" class="text-primary">Login</a>
+                    <a href="{{ route('login') }}" class="text-primary">Login</a>
                 </div>
             </div>
         </div>

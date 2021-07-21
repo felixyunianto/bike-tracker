@@ -20,7 +20,7 @@
     <main class="h-100">
         <div class="d-flex justify-content-center align-items-center p-4 p-md-5 h-100">
             <div class="text-center">
-                <div class="card rounded box-shadow mb-4" style="width: 500px; max-width: 100%;">
+                <div class="card rounded box-shadow mb-4" style="width: 340px; max-width: 100%;">
                     <div class="card-body py-4">
                         <h5 class="mb-4 font-weight-bold text-secondary">LOGIN</h5>
                         <form method="POST" action="{{ route('login') }}" class="mb-3">
@@ -59,7 +59,7 @@
                 </div>
                 <div class="fz-sm">
                     <span>Don't have an account?</span>
-                    <a href="register.html" class="text-primary">Register</a>
+                    <a href="{{ route('register') }}" class="text-primary">Register</a>
                 </div>
             </div>
         </div>
