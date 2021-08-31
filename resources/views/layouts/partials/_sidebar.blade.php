@@ -26,6 +26,12 @@
                             <span class="st-menu__text">Garage</span>
                         </a>
                     </li>
+                    <li class="st-menu__item">
+                        <a href="{{ route('garage.index') }}" class="st-menu__link">
+                            <i class="st-menu__icon fad fa-clock"></i>
+                            <span class="st-menu__text">History</span>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

@@ -34,12 +34,48 @@
 
         
 
-        @if ($locations)
-            @foreach ($locations as $location)
-                var marker = L.marker([{{ $location->latitudes }}, {{ $location->longitudes }}]).addTo(mymap);
-                marker.bindPopup("<b>Hello, {{ $location->bike->user->name }}!</b><br>{{ $location->bike->bike_name }}")
+        var greenIcon = L.icon({
+            iconUrl: `{!! asset('assets/images/marker2.png') !!}`,
+            iconSize: [38, 40],
+            shadowSize: [50, 64],
+            iconAnchor: [19, 40],
+            shadowAnchor: [4, 62],
+            popupAnchor: [0, 0]
+        })
+
+        var redIcon = L.icon({
+            iconUrl: `{!! asset('assets/images/marker1.png') !!}`,
+            iconSize: [38, 40],
+            shadowSize: [50, 64],
+            iconAnchor: [19, 40],
+            shadowAnchor: [4, 62],
+            popupAnchor: [0, 0]
+        })
+
+        var latLngs = [];
+
+        @if($tempLocations)
+            @foreach($tempLocations as $bike)
+                var latLng = [];
+                @if(count($bike->locations) > 0)
+                    @foreach ($bike->locations as $key => $location)
+                        latLng.push([{{$location->latitudes}}, {{$location->longitudes}}])
+                        @if($loop->last)
+                            var marker = L.marker([{{ $location->latitudes }}, {{ $location->longitudes }}],{icon : greenIcon}).addTo(mymap);
+                        @else
+                            var marker = L.marker([{{ $location->latitudes }}, {{ $location->longitudes }}],{icon : redIcon}).addTo(mymap);
+                        @endif
+                        marker.bindPopup("<b>Hello, {{ $location->bike->user->name }}!</b><br>{{ $location->bike->bike_name }}")
+                    @endforeach
+                    latLngs.push(latLng)
+                @endif
             @endforeach
         @endif
+        console.log(latLngs);
+        if(latLngs.length > 0){
+            var polyline = L.polyline(latLngs, {color: '#ff8080'}).addTo(mymap);
 
+            mymap.fitBounds(polyline.getBounds());
+        }
     </script>
 @endsection

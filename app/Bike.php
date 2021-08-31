@@ -17,4 +17,13 @@ class Bike extends Model
     public function locations() {
         return $this->hasMany(Location::class);
     }
+
+    public function lastLocation(){
+        return $this->hasMany(Location::class)
+            ->select('*')
+            ->join(\DB::raw('(Select max(id) as id from locations group by bike_id) lastLocation'), function($join){
+                $join->on('locations.id','=','lastLocation.id');
+            })
+            ->orderBy('created_at','desc');
+    }
 }

@@ -51,10 +51,10 @@
                                 <input type="hidden" name="_method" value="DELETE">
                                 @if ($bike->locked == true)
                                 <button type="button" class="btn btn-primary btn-sm btn-borrow" data-id="{{ $bike->id }}" id="btn-locked">
-                                    <i class="fas fa-bicycle"></i> Buka Kunci
+                                    <i class="fas fa-lock"></i> Kunci
                                 @else
                                 <button type="button" class="btn btn-primary btn-sm btn-borrow" data-id="{{ $bike->id }}" id="btn-locked">
-                                    <i class="fas fa-bicycle"></i> Kunci
+                                    <i class="fas fa-unlock"></i> Buka Kunci
                                 @endif
                                 </button>
                                 <a href="{{ route('garage.edit', $bike->id) }}" class="btn btn-warning btn-sm"> <i

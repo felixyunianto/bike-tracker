@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Location;
+use App\Bike;
 use Auth;
 
 class HomeController extends Controller
@@ -25,10 +26,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $locations = Location::with(['bike', 'bike.user'])->whereHas('bike', function($query){
-            return $query->where('user_id', Auth::user()->id);
-        })->get();
+        $currentDate = date('Y-m-d');
+        $tempLocations = Bike::with(['locations' => function($query)use($currentDate){
+            $query->where('date', $currentDate);
+        }])->where('user_id', Auth::user()->id)->get();
         
-        return view('home', compact('locations'));
+        return view('home', compact('tempLocations'));
     }
 }

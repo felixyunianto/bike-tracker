@@ -24,4 +24,5 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('garage', 'BikeController');
     Route::post('/borrow/{id}', 'OrderController@borrow')->name('borrow');
     Route::post('locked/{id}', 'BikeController@postLock')->name('bike.post-lock');
+    Route::get('/location', 'LocationController@index')->name('location.index');
 });
